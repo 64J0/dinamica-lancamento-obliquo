@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Dinâmica</title>
+	<meta charset="utf-8">
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	<link rel="stylesheet" href="./css/styles.css">
+	<script type="module" src="./js/index.js"></script>
+</head>
+
+<body>
+	<main>
+		<div id="esquerda">
+			<h1>Movimento Oblíquo</h1>
+
+			<p>Altura inicial (m):</p>
+			<input type="text" id="h0" value="0">
+
+			<p>Altura final (m):</p>
+			<input type="text" id="h1" value="0">
+
+			<p>Velocidade inicial (m/s):</p>
+			<input type="text" id="v0" value="20">
+
+			<p>Ângulo (graus):</p>
+			<input type="text" id="theta" value="45">
+
+			<div id="botao_central">
+				<button id="calcular">Calcular!</button>
+			</div>
+			<br>
+		</div>
+
+		<div id="direita">
+			<h1>Resultados</h1>
+
+			<p>Altura máxima (m):</p>
+			<input type="text" id="hmax" disabled="disabled">
+
+			<p>Distância horizontal percorrida (m):</p>
+			<input type="text" id="xmax" disabled="disabled">
+
+			<p>Tempo total de trajetória (s):</p>
+			<input type="text" id="t-total" disabled="disabled">
+		</div>
+	</main>
+
+	<div>
+		<h1>Área dos gráficos</h1>
+
+		<div id="pointsControl">
+			<p id="showInputRangeValue">
+				Quantidade de pontos nos gráficos: 100
+			</p>
+			<input id="pointsQuantity" type="range" value="100" min="10" max="1000" step="10">
+		</div>
+
+		<canvas class="hidden" id="deslocamentoYx"></canvas>
+
+		<canvas class="hidden" id="velocidades"></canvas>
+	</div>
+
+	<!--
+	<div id="description-images">
+		<h1>Explicações:</h1>
+
+		<img src="imagens/descricao.JPG">
+		<img src="imagens/descricao-lancamento-obliquo.PNG">
+	</div>
+	-->
+
+	<footer>
+		<span>&copy; Todos os direitos reservados para Nicole Lara Ferreira</span>
+	</footer>
+</body>
+
+</html>

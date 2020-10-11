@@ -1,0 +1,116 @@
+* {
+  box-sizing: border-box;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+input,
+button {
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid black;
+  margin: 10px 0 20px;
+}
+
+div#esquerda {
+  width: 50%;
+  min-width: 300px;
+  height: 400px;
+  float: left;
+  background-color: #ccc;
+  text-align: center;
+}
+
+div#direita {
+  width: 45%;
+  min-width: 285px;
+  height: 400px;
+  float: right;
+  text-align: center;
+}
+
+input {
+  margin: 4px;
+  padding-left: 6px;
+  width: 80%;
+  font-size: 1rem;
+  height: 1.4rem;
+}
+
+div#botao_central {
+  text-align: center;
+}
+
+button {
+  width: 10rem;
+  padding: 10px;
+  margin: 20px 0;
+  background-color: orange;
+  border-radius: 8px;
+  font-size: 1.2rem;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: darkorange;
+}
+
+h1 {
+  margin: 10px;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+}
+
+span {
+  display: block;
+  margin-top: 40px;
+}
+
+img {
+  width: 80%;
+}
+
+p {
+  margin-bottom: 0.2rem;
+}
+
+div#description-images {
+  text-align: center;
+}
+
+div#pointsControl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+input[type="range"] {
+  width: 50%;
+  margin-right: 32px;
+}
+
+canvas {
+  border: 1px solid black;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.hidden {
+  visibility: hidden;
+}
