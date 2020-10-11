@@ -20,14 +20,14 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 1px solid black;
   margin: 10px 0 20px;
+  height: 450px;
+  border: 1px solid black;
 }
 
 div#esquerda {
   width: 50%;
   min-width: 300px;
-  height: 400px;
   float: left;
   background-color: #ccc;
   text-align: center;
@@ -36,7 +36,6 @@ div#esquerda {
 div#direita {
   width: 45%;
   min-width: 285px;
-  height: 400px;
   float: right;
   text-align: center;
 }
@@ -49,14 +48,10 @@ input {
   height: 1.4rem;
 }
 
-div#botao_central {
-  text-align: center;
-}
-
 button {
   width: 10rem;
   padding: 10px;
-  margin: 20px 0;
+  margin: 20px auto;
   background-color: orange;
   border-radius: 8px;
   font-size: 1.2rem;
@@ -68,7 +63,8 @@ button:hover {
 }
 
 h1 {
-  margin: 10px;
+  margin: 12px;
+  padding: 12px;
 }
 
 footer {
@@ -87,10 +83,6 @@ img {
 
 p {
   margin-bottom: 0.2rem;
-}
-
-div#description-images {
-  text-align: center;
 }
 
 div#pointsControl {

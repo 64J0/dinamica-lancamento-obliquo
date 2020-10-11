@@ -6,7 +6,7 @@ function displayVelocitiesChart({
   array_velocidade_vertical
 }) {
   const ctx = document.querySelector('#velocidades');
-  ctx.className = "";
+  ctx.className = '';
 
   if (chart) {
     chart.destroy();
@@ -43,7 +43,7 @@ function displayVelocitiesChart({
     }
   });
 
-  return console.log('Gráfico das velocidades foi atualizado');
+  return { ok: true };
 }
 
 export default displayVelocitiesChart;

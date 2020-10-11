@@ -1,42 +1,22 @@
-import displayDisplacementChart from "./displayDisplacementChart.js";
-import displayVelocitiesChart from "./displayVelocitiesChart.js";
+import displayDisplacementChart from './displayDisplacementChart.js';
+import displayVelocitiesChart from './displayVelocitiesChart.js';
 
 const g = Number(9.81); // m/s^2
 
 function calculateAndPlot() {
-  let h0 = document.getElementById('h0').value;
-  h0 = Number(h0.trim());
-
-  let h1 = document.getElementById('h1').value;
-  h1 = Number(h1.trim());
-
-  let v0 = document.getElementById('v0').value;
-  v0 = Number(v0.trim());
-
-  let theta_deg = document.getElementById('theta').value;
-  theta_deg = Number(theta_deg.trim());
+  const { h0, h1, v0, theta_deg } = getValuesFromInterface();
 
   //Transformando em radianos
-  let theta_rad = (theta_deg * Math.PI / 180);
+  const theta_rad = (theta_deg * Math.PI / 180);
 
-  let hmax = Math.pow((v0 * Math.sin(theta_rad)), 2);
-  hmax = hmax / (2 * g);
-  hmax = Number(hmax) + Number(h0);
+  const hmax = calculateMaxHeight({ v0, theta_rad, h0 });
   document.querySelector('#hmax').value = hmax;
 
-  let t_subida = v0 * Math.sin(theta_rad) / g;
-
-  let t_descida;
-  t_descida = (hmax - h1) * 2 / g;
-  if (t_descida < 0) {
-    return alert("Parâmetros incorretos");
-  }
-  t_descida = Math.sqrt(t_descida);
-
-  let t_total = Number(t_subida) + Number(t_descida);
-  let xmax = v0 * Math.cos(theta_rad) * t_total;
-  document.querySelector('#xmax').value = xmax;
+  const { t_subida, t_descida, t_total } = calculateTotalTime({ v0, theta_rad, hmax, h1 });
   document.querySelector('#t-total').value = t_total;
+
+  const xmax = v0 * Math.cos(theta_rad) * t_total;
+  document.querySelector('#xmax').value = xmax.toFixed(5);
 
   // ==================================================
   // Gráficos
@@ -46,6 +26,50 @@ function calculateAndPlot() {
 
   plotDisplacement({ t_subida, t_total, v0, theta_rad, h0, hmax, incremento });
   plotVelocities({ t_subida, t_total, v0, theta_rad, incremento });
+
+  return { ok: true };
+}
+
+function getValuesFromInterface() {
+  let h0 = document.getElementById('h0').value || 0;
+  h0 = Number(h0.trim());
+
+  let h1 = document.getElementById('h1').value || 0;
+  h1 = Number(h1.trim());
+
+  let v0 = document.getElementById('v0').value || 0;
+  v0 = Number(v0.trim());
+
+  let theta_deg = document.getElementById('theta').value || 0;
+  theta_deg = Number(theta_deg.trim());
+
+  return { h0, h1, v0, theta_deg };
+}
+
+function calculateMaxHeight({ v0, theta_rad, h0 }) {
+  let hmax = Math.pow((v0 * Math.sin(theta_rad)), 2);
+  hmax = hmax / (2 * g);
+  hmax = Number(hmax) + Number(h0);
+
+  return hmax.toFixed(5);
+}
+
+function calculateTotalTime({ v0, theta_rad, hmax, h1 }) {
+  let t_subida = v0 * Math.sin(theta_rad) / g;
+
+  let t_descida;
+  t_descida = (hmax - h1) * 2 / g;
+
+  if (t_descida < 0) {
+    return errorFound();
+  }
+
+  t_descida = Math.sqrt(t_descida);
+
+  let t_total = Number(t_subida) + Number(t_descida);
+  t_total = t_total.toFixed(5);
+
+  return { t_subida, t_descida, t_total };
 }
 
 function plotDisplacement({ t_subida, t_total, v0, theta_rad, h0, hmax, incremento }) {
@@ -103,6 +127,10 @@ function plotVelocities({ t_subida, t_total, v0, theta_rad, incremento }) {
     array_velocidade_horizontal,
     array_velocidade_vertical
   })
+}
+
+function errorFound() {
+  return alert('Parâmetros incorretos');
 }
 
 document.querySelector('#calcular').addEventListener('click', calculateAndPlot);

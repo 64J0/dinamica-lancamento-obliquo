@@ -4,6 +4,7 @@
 <head>
 	<title>Dinâmica</title>
 	<meta charset="utf-8">
+	<link rel="icon" href="imagens/apple.png" type="image/icon">
 
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 	<link rel="stylesheet" href="./css/styles.css">
@@ -13,7 +14,7 @@
 <body>
 	<main>
 		<div id="esquerda">
-			<h1>Movimento Oblíquo</h1>
+			<h1>Lançamento Oblíquo</h1>
 
 			<p>Altura inicial (m):</p>
 			<input type="text" id="h0" value="0">
@@ -27,10 +28,7 @@
 			<p>Ângulo (graus):</p>
 			<input type="text" id="theta" value="45">
 
-			<div id="botao_central">
-				<button id="calcular">Calcular!</button>
-			</div>
-			<br>
+			<button id="calcular">Calcular!</button>
 		</div>
 
 		<div id="direita">
@@ -52,12 +50,12 @@
 
 		<div id="pointsControl">
 			<p id="showInputRangeValue">
-				Quantidade de pontos nos gráficos: 100
+				Quantidade de pontos nos gráficos: 10
 			</p>
-			<input id="pointsQuantity" type="range" value="100" min="10" max="1000" step="10">
+			<input id="pointsQuantity" type="range" value="10" min="10" max="1000" step="10">
 		</div>
 
-		<canvas class="hidden" id="deslocamentoYx"></canvas>
+		<canvas class="hidden" id="deslocamento"></canvas>
 
 		<canvas class="hidden" id="velocidades"></canvas>
 	</div>
@@ -72,7 +70,7 @@
 	-->
 
 	<footer>
-		<span>&copy; Todos os direitos reservados para Nicole Lara Ferreira</span>
+		<span>&copy; Nicole Lara Ferreira</span>
 	</footer>
 </body>
 

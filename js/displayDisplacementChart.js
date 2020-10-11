@@ -4,8 +4,8 @@ function displayDisplacementChart({
   array_posicao_horizontal,
   array_posicao_vertical
 }) {
-  const ctx = document.querySelector('#deslocamentoYx');
-  ctx.className = "";
+  const ctx = document.querySelector('#deslocamento');
+  ctx.className = '';
 
   if (chart) {
     chart.destroy();
@@ -38,7 +38,7 @@ function displayDisplacementChart({
     }
   });
 
-  return console.log('Gráfico do deslocamento atualizado.');
+  return { ok: true };
 }
 
 export default displayDisplacementChart;
