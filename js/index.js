@@ -1,6 +1,3 @@
-import displayDisplacementChart from './displayDisplacementChart.js';
-import displayVelocitiesChart from './displayVelocitiesChart.js';
-
 const g = Number(9.81); // m/s^2
 
 function calculateAndPlot() {
@@ -140,3 +137,97 @@ document.querySelector('#pointsQuantity').addEventListener('change', () => {
   const inputRangeString = `Quantidade de pontos nos gráficos: ${rangeValue}`;
   return document.querySelector('#showInputRangeValue').innerHTML = inputRangeString;
 });
+
+// ================================
+// Gráficos
+
+let chartVelocity;
+
+function displayVelocitiesChart({
+  array_tempo,
+  array_velocidade_horizontal,
+  array_velocidade_vertical
+}) {
+  const ctx = document.querySelector('#velocidades');
+  ctx.className = '';
+
+  if (chartVelocity) {
+    chartVelocity.destroy();
+  }
+
+  chartVelocity = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: array_tempo,
+      datasets: [{
+        label: 'Velocidade horizontal',
+        borderColor: 'rgb(132, 99, 255)',
+        data: array_velocidade_horizontal
+      }, {
+        label: 'Velocidade vertical',
+        borderColor: 'rgb(99, 255, 132)',
+        data: array_velocidade_vertical
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        fontSize: 24,
+        text: 'Velocidades'
+      },
+      scales: {
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Tempo (s)'
+          }
+        }]
+      }
+    }
+  });
+
+  return { ok: true };
+}
+
+let chartDisplacement;
+
+function displayDisplacementChart({
+  array_posicao_horizontal,
+  array_posicao_vertical
+}) {
+  const ctx = document.querySelector('#deslocamento');
+  ctx.className = '';
+
+  if (chartDisplacement) {
+    chartDisplacement.destroy();
+  }
+
+  chartDisplacement = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: array_posicao_horizontal,
+      datasets: [{
+        label: 'Posição vertical (y)',
+        borderColor: 'rgb(119, 221, 119)',
+        data: array_posicao_vertical
+      }]
+    },
+    options: {
+      title: {
+        display: true,
+        fontSize: 24,
+        text: 'Deslocamento da partícula'
+      },
+      scales: {
+        xAxes: [{
+          scaleLabel: {
+            display: true,
+            labelString: 'Posição horizontal (x)'
+          }
+        }]
+      }
+    }
+  });
+
+  return { ok: true };
+}
