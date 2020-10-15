@@ -1,46 +1,56 @@
 const g = Number(9.81); // m/s^2
 
 function calculateAndPlot() {
-  const { h0, h1, v0, theta_deg } = getValuesFromInterface();
+  try {
+    const { h0, h1, v0, theta_deg } = getValuesFromInterface();
 
-  //Transformando em radianos
-  const theta_rad = (theta_deg * Math.PI / 180);
+    //Transformando em radianos
+    const theta_rad = (theta_deg * Math.PI / 180);
 
-  const hmax = calculateMaxHeight({ v0, theta_rad, h0 });
-  document.querySelector('#hmax').value = hmax;
+    const hmax = calculateMaxHeight({ v0, theta_rad, h0 });
+    document.querySelector('#hmax').value = hmax;
 
-  const { t_subida, t_descida, t_total } = calculateTotalTime({ v0, theta_rad, hmax, h1 });
-  document.querySelector('#t-total').value = t_total;
+    const { t_subida, t_descida, t_total } = calculateTotalTime({ v0, theta_rad, hmax, h1 });
+    document.querySelector('#t-total').value = t_total;
 
-  const xmax = v0 * Math.cos(theta_rad) * t_total;
-  document.querySelector('#xmax').value = xmax.toFixed(5);
+    const xmax = v0 * Math.cos(theta_rad) * t_total;
+    document.querySelector('#xmax').value = xmax.toFixed(5);
 
-  // ==================================================
-  // Gráficos
+    // ==================================================
+    // Gráficos
 
-  const pointsQuantity = document.querySelector('#pointsQuantity').value;
-  const incremento = t_total / pointsQuantity;
+    const pointsQuantity = document.querySelector('#pointsQuantity').value;
+    const incremento = t_total / pointsQuantity;
 
-  plotDisplacement({ t_subida, t_total, v0, theta_rad, h0, hmax, incremento });
-  plotVelocities({ t_subida, t_total, v0, theta_rad, incremento });
+    calculateDisplacementAndPlot({ t_subida, t_total, v0, theta_rad, h0, hmax, incremento });
+    calculateVelocitiesAndPlot({ t_subida, t_total, v0, theta_rad, incremento });
 
-  return { ok: true };
+    return { ok: true };
+  } catch (e) {
+    console.error(e);
+    return { error: true };
+  }
 }
 
 function getValuesFromInterface() {
-  let h0 = document.getElementById('h0').value || 0;
-  h0 = Number(h0.trim());
+  try {
+    let h0 = document.getElementById('h0').value || 0;
+    h0 = Number(h0.trim());
 
-  let h1 = document.getElementById('h1').value || 0;
-  h1 = Number(h1.trim());
+    let h1 = document.getElementById('h1').value || 0;
+    h1 = Number(h1.trim());
 
-  let v0 = document.getElementById('v0').value || 0;
-  v0 = Number(v0.trim());
+    let v0 = document.getElementById('v0').value || 0;
+    v0 = Number(v0.trim());
 
-  let theta_deg = document.getElementById('theta').value || 0;
-  theta_deg = Number(theta_deg.trim());
+    let theta_deg = document.getElementById('theta').value || 0;
+    theta_deg = Number(theta_deg.trim());
 
-  return { h0, h1, v0, theta_deg };
+    return { h0, h1, v0, theta_deg };
+  } catch (e) {
+    console.error(e);
+    return errorFound();
+  }
 }
 
 function calculateMaxHeight({ v0, theta_rad, h0 }) {
@@ -48,7 +58,7 @@ function calculateMaxHeight({ v0, theta_rad, h0 }) {
   hmax = hmax / (2 * g);
   hmax = Number(hmax) + Number(h0);
 
-  return hmax.toFixed(5);
+  return hmax.toFixed(4);
 }
 
 function calculateTotalTime({ v0, theta_rad, hmax, h1 }) {
@@ -64,12 +74,12 @@ function calculateTotalTime({ v0, theta_rad, hmax, h1 }) {
   t_descida = Math.sqrt(t_descida);
 
   let t_total = Number(t_subida) + Number(t_descida);
-  t_total = t_total.toFixed(5);
+  t_total = t_total.toFixed(4);
 
   return { t_subida, t_descida, t_total };
 }
 
-function plotDisplacement({ t_subida, t_total, v0, theta_rad, h0, hmax, incremento }) {
+function calculateDisplacementAndPlot({ t_subida, t_total, v0, theta_rad, h0, hmax, incremento }) {
   const velocidade_horizontal = v0 * Math.cos(theta_rad);
   let array_posicao_horizontal = new Array();
 
@@ -98,7 +108,7 @@ function plotDisplacement({ t_subida, t_total, v0, theta_rad, h0, hmax, incremen
   });
 }
 
-function plotVelocities({ t_subida, t_total, v0, theta_rad, incremento }) {
+function calculateVelocitiesAndPlot({ t_subida, t_total, v0, theta_rad, incremento }) {
   const array_tempo = new Array();
   const array_velocidade_horizontal = new Array();
   const array_velocidade_vertical = new Array();
@@ -127,7 +137,7 @@ function plotVelocities({ t_subida, t_total, v0, theta_rad, incremento }) {
 }
 
 function errorFound() {
-  return alert('Parâmetros incorretos');
+  return alert('Parâmetros incorretos!');
 }
 
 document.querySelector('#calcular').addEventListener('click', calculateAndPlot);
